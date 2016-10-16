@@ -113,9 +113,11 @@ namespace View
                             Console.WriteLine();
                             break;
                         case 3:
-                            Console.WriteLine("Eneter member id: ");
+                            Console.WriteLine("Enter member id: ");
                             id = Convert.ToInt32(Console.ReadLine());
-                            theDatabase.deleteMember(id);
+                            if (theDatabase.deleteMember(id)) { }
+                            else
+                                Console.WriteLine("The member id does not exist.");
                             break;
                         case 4:
                             Console.WriteLine("Enter member id: ");
@@ -124,38 +126,64 @@ namespace View
                             name = Console.ReadLine();
                             Console.WriteLine("Input new social security number: ");
                             ssn = Console.ReadLine();
-                            theDatabase.updateMember(id, name, ssn);
+                            if (theDatabase.updateMember(id, name, ssn)) { }
+                            else
+                            {
+                                Console.WriteLine();
+                                Console.WriteLine("The member id does not exist.");
+                            }
                             break;
+
                         case 5:
                             Console.WriteLine("Enter member id: ");
                             id = Convert.ToInt32(Console.ReadLine());
                             theMember = theDatabase.lookAtSpecificMember(id);
-                            Console.WriteLine(theMember.ToString("C"));
-                            Console.WriteLine();
-                            Console.WriteLine(theMember.ToString("V"));
-                            Console.WriteLine();
+                            if (theMember != null)
+                            {
+                                Console.WriteLine(theMember.ToString("C"));
+                                Console.WriteLine();
+                                Console.WriteLine(theMember.ToString("V"));
+                                Console.WriteLine();
+                            }
+                            else
+                                Console.WriteLine("The member does not exist.");
                             break;
                         case 6:
                             Console.WriteLine("Enter member id: ");
                             id = Convert.ToInt32(Console.ReadLine());
                             theMember = theDatabase.lookAtSpecificMember(id);
-                            registerBoat(theMember);
+                            if(theMember != null)
+                                registerBoat(theMember);
+                            else
+                                Console.WriteLine("The member id does not exist.");
                             break;
                         case 7:
                             Console.WriteLine("Enter member id: ");
                             id = Convert.ToInt32(Console.ReadLine());
-                            Console.WriteLine("Enter index of the boat: ");
-                            index = Convert.ToInt32(Console.ReadLine());
                             theMember = theDatabase.lookAtSpecificMember(id);
-                            theMember.deleteBoat(index);
+                            if(theMember != null)
+                            {
+                                Console.WriteLine("Enter index of the boat: ");
+                                index = Convert.ToInt32(Console.ReadLine());
+                                if (theMember.deleteBoat(index)) { }
+                                else
+                                    Console.WriteLine("Index of the boat or the boats does not exist, try another index starting from index 0.");
+                            }
+                            else
+                                Console.WriteLine("The member id does not exist.");
                             break;
                         case 8:
                             Console.WriteLine("Enter member id: ");
                             id = Convert.ToInt32(Console.ReadLine());
                             theMember = theDatabase.lookAtSpecificMember(id);
+                            if(theMember != null)
+                            {
                             Console.WriteLine("Enter index of the boat: ");
                             index = Convert.ToInt32(Console.ReadLine());
                             updateBoat(index, theMember);
+                            }
+                            else
+                                Console.WriteLine("The member id does not exist.");
                             break;
                         case 9: // "Exit."
                             break;
@@ -253,23 +281,33 @@ namespace View
 
                 case 1:
                     theType = Model.BoatType.Sailboat;
-                    theMember.updateBoat(index, theType, length);
+                    if(theMember.updateBoat(index, theType, length)){}
+                    else
+                        Console.WriteLine("Index of the boat or the boats does not exist, try another index starting from index 0.");
                     break;
                 case 2:
                     theType = Model.BoatType.Motorsailer;
-                    theMember.updateBoat(index, theType, length);
+                    if (theMember.updateBoat(index, theType, length)) { }
+                    else
+                        Console.WriteLine("Index of the boat or the boats does not exist, try another index starting from index 0.");
                     break;
                 case 3:
                     theType = Model.BoatType.Kayak;
-                    theMember.updateBoat(index, theType, length);
+                    if (theMember.updateBoat(index, theType, length)) { }
+                    else
+                        Console.WriteLine("Index of the boat or the boats does not exist, try another index starting from index 0.");
                     break;
                 case 4:
                     theType = Model.BoatType.Canoe;
-                    theMember.updateBoat(index, theType, length);
+                    if (theMember.updateBoat(index, theType, length)) { }
+                    else
+                        Console.WriteLine("Index of the boat or the boats does not exist, try another index starting from index 0.");
                     break;
                 case 5:
                     theType = Model.BoatType.Other;
-                    theMember.updateBoat(index, theType, length);
+                    if (theMember.updateBoat(index, theType, length)) { }
+                    else
+                        Console.WriteLine("Index of the boat or the boats does not exist, try another index starting from index 0.");
                     break;
                 default:
                     break;

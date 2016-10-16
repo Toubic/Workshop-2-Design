@@ -22,15 +22,17 @@ namespace Model
             Member newMember = new Member(name, ssn);
             members.Add(newMember);
         }
-        public void updateMember(int id, string name, string ssn)
+        public bool updateMember(int id, string name, string ssn)
         {
             for (int i = 0; i < members.Count(); i++)
             {
                 if(members[i].id == id){
                     members[i].name = name;
                     members[i].ssn = ssn;
+                    return true;
                 }
             }
+            return false;
         }
         public Member lookAtSpecificMember(int id)
         {
@@ -44,13 +46,17 @@ namespace Model
             return null;
         }
 
-        public void deleteMember(int id)
+        public bool deleteMember(int id)
         {
             for (int i = 0; i < members.Count(); i++)
             {
                 if (members[i].id == id)
+                {
                     members.RemoveAt(i);
+                    return true;
+                }
             }
+            return false;
         }
         public void listMembers(string format)
         {

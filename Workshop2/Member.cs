@@ -32,13 +32,25 @@ namespace Model
             boats.Add(new Boat(type, length));
 
         }
-        public void updateBoat(int i, BoatType type, int length)
+        public bool updateBoat(int i, BoatType type, int length)
         {
-            boats[i] = new Boat(type, length);
+            if (i < 0 || i > boats.Count())
+                return false;
+            else
+            {
+                boats[i] = new Boat(type, length);
+                return true;
+            }
         }
-        public void deleteBoat(int i)
+        public bool deleteBoat(int i)
         {
-            boats.RemoveAt(i);
+            if (i < 0 || i > boats.Count())
+                return false;
+            else
+            {
+                boats.RemoveAt(i);
+                return true;
+            }
         }
 
         /// <summary>
