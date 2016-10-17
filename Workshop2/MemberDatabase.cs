@@ -130,11 +130,14 @@ namespace Model
             }
             return false;
         }
-        public void listMembers(string format)
+        public string listMembers(string format)
         {
+            string listOfMembers = "";
+
             foreach(Member element in members){
-                Console.WriteLine(element.ToString(format));
+                listOfMembers += string.Format("{0} {1}", element.ToString(format), Environment.NewLine);
             }
+            return listOfMembers;
         }
     }
 }

@@ -67,12 +67,10 @@ namespace View
                             break;
                         case 2:
                             Console.WriteLine("Compact List:");
-                            foreach (Model.Member element in database.Members)
-                                Console.WriteLine(element.ToString("C"));
+                            Console.WriteLine(database.listMembers("C"));
                             Console.WriteLine();
                             Console.WriteLine("Verbose List:");
-                            foreach (Model.Member element in database.Members)
-                                Console.WriteLine(element.ToString("V"));
+                            Console.WriteLine(database.listMembers("V"));
                             Console.WriteLine();
                             break;
                         case 3:
