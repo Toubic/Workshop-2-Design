@@ -9,10 +9,10 @@ namespace Model
     {
         //Counter for incremented id:
         private static int theCounter = 1;
-        public int id;
-        public string name;
-        public string ssn;
-        public List<Boat> boats;
+        private int id;
+        private string name;
+        private string ssn;
+        private List<Boat> boats;
 
         /// <summary>
         /// Constructor for a member.
@@ -27,6 +27,10 @@ namespace Model
             this.ssn = ssn;
             boats = new List<Boat>();
         }
+        public int ID { get { return id; } private set { } }
+        public string Name { get { return name; } set { name = value; } }
+        public string SSN { get { return ssn; } set { ssn = value; } }
+
         public void registerBoat(BoatType type, int length)
         {
             boats.Add(new Boat(type, length));

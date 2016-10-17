@@ -98,9 +98,9 @@ namespace Model
         {
             for (int i = 0; i < members.Count(); i++)
             {
-                if(members[i].id == id){
-                    members[i].name = name;
-                    members[i].ssn = ssn;
+                if(members[i].ID == id){
+                    members[i].Name = name;
+                    members[i].SSN = ssn;
                     return true;
                 }
             }
@@ -110,7 +110,7 @@ namespace Model
         {
             for (int i = 0; i < members.Count(); i++)
             {
-                if (members[i].id == id)
+                if (members[i].ID == id)
                 {
                     return members[i];
                 }
@@ -122,7 +122,7 @@ namespace Model
         {
             for (int i = 0; i < members.Count(); i++)
             {
-                if (members[i].id == id)
+                if (members[i].ID == id)
                 {
                     members.RemoveAt(i);
                     return true;
