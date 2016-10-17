@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.IO;
 
 namespace View
 {
@@ -13,58 +12,9 @@ namespace View
             try
             {
 
-                Model.MemberDatabase theDatabase;
-                theDatabase = new Model.MemberDatabase();
+                Model.MemberDatabase database = new Model.MemberDatabase();
+                database.initializeDatabase();
 
-                //Read in database from text file:
-
-                if(File.Exists("members.txt")){
-                    StreamReader streamR = new StreamReader("members.txt");
-                    int numberOfMembers = Convert.ToInt32(streamR.ReadLine());
-                    string aMember;
-
-                    for (int i = 0; i < numberOfMembers; i++)
-                    {
-                        aMember = streamR.ReadLine();
-                        string[] member = aMember.Split(new char[0]);
-                        theDatabase.createMember(member[0], member[1]);
-                        if (member.Count() > 3)
-                        {
-                            for (int y = 3; y < member.Count(); y++)
-                            {
-                                Model.BoatType theType;
-                                switch (member[y])
-                                {
-
-                                    case "Sailboat":
-                                        theType = Model.BoatType.Sailboat;
-                                        theDatabase.members[i].registerBoat(theType, Convert.ToInt32(member[(y + 1)]));
-                                        break;
-                                    case "Motorsailer":
-                                        theType = Model.BoatType.Motorsailer;
-                                        theDatabase.members[i].registerBoat(theType, Convert.ToInt32(member[(y + 1)]));
-                                        break;
-                                    case "Kayak":
-                                        theType = Model.BoatType.Kayak;
-                                        theDatabase.members[i].registerBoat(theType, Convert.ToInt32(member[(y + 1)]));
-                                        break;
-                                    case "Canoe":
-                                        theType = Model.BoatType.Canoe;
-                                        theDatabase.members[i].registerBoat(theType, Convert.ToInt32(member[(y + 1)]));
-                                        break;
-                                    case "Other":
-                                        theType = Model.BoatType.Other;
-                                        theDatabase.members[i].registerBoat(theType, Convert.ToInt32(member[(y + 1)]));
-                                        break;
-                                    default:
-                                        break;
-                                }
-                            }
-                        }
-                    }
-
-                    streamR.Close();
-                }
                 //Main menu:
                 int option = 0;
 
@@ -113,15 +63,15 @@ namespace View
                             name = Console.ReadLine();
                             Console.WriteLine("Enter social security number: ");
                             ssn = Console.ReadLine();
-                            theDatabase.createMember(name, ssn);
+                            database.createMember(name, ssn);
                             break;
                         case 2:
                             Console.WriteLine("Compact List:");
-                            foreach(Model.Member element in theDatabase.members)
+                            foreach (Model.Member element in database.Members)
                                 Console.WriteLine(element.ToString("C"));
                             Console.WriteLine();
                             Console.WriteLine("Verbose List:");
-                            foreach (Model.Member element in theDatabase.members)
+                            foreach (Model.Member element in database.Members)
                                 Console.WriteLine(element.ToString("V"));
                             Console.WriteLine();
                             break;
@@ -130,7 +80,7 @@ namespace View
                             {
                                 Console.WriteLine("Enter member id: ");
                                 id = Convert.ToInt32(Console.ReadLine());
-                                if (theDatabase.deleteMember(id)) { }
+                                if (database.deleteMember(id)) { }
                                 else
                                     Console.WriteLine("The member id does not exist.");
                             }
@@ -148,7 +98,7 @@ namespace View
                                 name = Console.ReadLine();
                                 Console.WriteLine("Input new social security number: ");
                                 ssn = Console.ReadLine();
-                                if (theDatabase.updateMember(id, name, ssn)) { }
+                                if (database.updateMember(id, name, ssn)) { }
                                 else
                                 {
                                     Console.WriteLine();
@@ -166,7 +116,7 @@ namespace View
                             {
                                 Console.WriteLine("Enter member id: ");
                                 id = Convert.ToInt32(Console.ReadLine());
-                                theMember = theDatabase.lookAtSpecificMember(id);
+                                theMember = database.lookAtSpecificMember(id);
                                 if (theMember != null)
                                 {
                                     Console.WriteLine(theMember.ToString("C"));
@@ -187,7 +137,7 @@ namespace View
                             {
                                 Console.WriteLine("Enter member id: ");
                                 id = Convert.ToInt32(Console.ReadLine());
-                                theMember = theDatabase.lookAtSpecificMember(id);
+                                theMember = database.lookAtSpecificMember(id);
                                 if (theMember != null)
                                     registerBoat(theMember);
                                 else
@@ -203,7 +153,7 @@ namespace View
                             {
                                 Console.WriteLine("Enter member id: ");
                                 id = Convert.ToInt32(Console.ReadLine());
-                                theMember = theDatabase.lookAtSpecificMember(id);
+                                theMember = database.lookAtSpecificMember(id);
                                 if (theMember != null)
                                 {
                                     Console.WriteLine("Enter index of the boat: ");
@@ -225,7 +175,7 @@ namespace View
                             {
                                 Console.WriteLine("Enter member id: ");
                                 id = Convert.ToInt32(Console.ReadLine());
-                                theMember = theDatabase.lookAtSpecificMember(id);
+                                theMember = database.lookAtSpecificMember(id);
                                 if (theMember != null)
                                 {
                                     Console.WriteLine("Enter index of the boat: ");
@@ -247,13 +197,7 @@ namespace View
 
                     }
 
-                    //Write database to file:
-                    StreamWriter streamW = new StreamWriter("members.txt");
-                    streamW.WriteLine(theDatabase.members.Count());
-                    foreach(Model.Member element in theDatabase.members){
-                        streamW.WriteLine(element.ToString("V"));
-                    }
-                    streamW.Close();
+                    database.saveDatabase();
                 }
             }
             catch (Exception e)
