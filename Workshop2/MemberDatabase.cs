@@ -43,29 +43,29 @@ namespace Model
                     {
                         for (int y = 3; y < member.Count(); y++)
                         {
-                            Model.BoatType theType;
+                            Model.BoatType boatType;
                             switch (member[y])
                             {
 
                                 case "Sailboat":
-                                    theType = Model.BoatType.Sailboat;
-                                    members[i].registerBoat(theType, Convert.ToInt32(member[(y + 1)]));
+                                    boatType = Model.BoatType.Sailboat;
+                                    members[i].registerBoat(boatType, Convert.ToInt32(member[(y + 1)]));
                                     break;
                                 case "Motorsailer":
-                                    theType = Model.BoatType.Motorsailer;
-                                    members[i].registerBoat(theType, Convert.ToInt32(member[(y + 1)]));
+                                    boatType = Model.BoatType.Motorsailer;
+                                    members[i].registerBoat(boatType, Convert.ToInt32(member[(y + 1)]));
                                     break;
                                 case "Kayak":
-                                    theType = Model.BoatType.Kayak;
-                                    members[i].registerBoat(theType, Convert.ToInt32(member[(y + 1)]));
+                                    boatType = Model.BoatType.Kayak;
+                                    members[i].registerBoat(boatType, Convert.ToInt32(member[(y + 1)]));
                                     break;
                                 case "Canoe":
-                                    theType = Model.BoatType.Canoe;
-                                    members[i].registerBoat(theType, Convert.ToInt32(member[(y + 1)]));
+                                    boatType = Model.BoatType.Canoe;
+                                    members[i].registerBoat(boatType, Convert.ToInt32(member[(y + 1)]));
                                     break;
                                 case "Other":
-                                    theType = Model.BoatType.Other;
-                                    members[i].registerBoat(theType, Convert.ToInt32(member[(y + 1)]));
+                                    boatType = Model.BoatType.Other;
+                                    members[i].registerBoat(boatType, Convert.ToInt32(member[(y + 1)]));
                                     break;
                                 default:
                                     break;
