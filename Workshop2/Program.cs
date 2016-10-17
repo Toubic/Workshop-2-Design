@@ -65,7 +65,6 @@ namespace View
 
                     streamR.Close();
                 }
-
                 //Main menu:
                 int option = 0;
 
@@ -83,8 +82,23 @@ namespace View
                     Console.WriteLine("8. Update a boat's information.");
                     Console.WriteLine("9. Exit.");
                     Console.WriteLine("Your choice: ");
-                    option = Convert.ToInt32(Console.ReadLine());
-                    Console.Clear();
+                    try
+                    {
+                        option = Convert.ToInt32(Console.ReadLine());
+                        if (option < 1 || option > 9)
+                            throw new ArgumentOutOfRangeException();
+                        Console.Clear();
+                    }
+                    catch (FormatException)
+                    {
+                        Console.Clear();
+                        Console.WriteLine("The input had wrong format.");
+                    }
+                    catch (ArgumentOutOfRangeException)
+                    {
+                        Console.Clear();
+                        Console.WriteLine("The option was not in the range of 1-9.");
+                    }
                     
                     int id;
                     int index;
@@ -94,7 +108,6 @@ namespace View
 
                     switch (option)
                     {
-
                         case 1:
                             Console.WriteLine("Enter name: ");
                             name = Console.ReadLine();
@@ -113,77 +126,119 @@ namespace View
                             Console.WriteLine();
                             break;
                         case 3:
-                            Console.WriteLine("Enter member id: ");
-                            id = Convert.ToInt32(Console.ReadLine());
-                            if (theDatabase.deleteMember(id)) { }
-                            else
-                                Console.WriteLine("The member id does not exist.");
+                            try
+                            {
+                                Console.WriteLine("Enter member id: ");
+                                id = Convert.ToInt32(Console.ReadLine());
+                                if (theDatabase.deleteMember(id)) { }
+                                else
+                                    Console.WriteLine("The member id does not exist.");
+                            }
+                            catch (FormatException)
+                            {
+                                Console.WriteLine("The input had wrong format.");
+                            }
                             break;
                         case 4:
-                            Console.WriteLine("Enter member id: ");
-                            id = Convert.ToInt32(Console.ReadLine());
-                            Console.WriteLine("Input new name: ");
-                            name = Console.ReadLine();
-                            Console.WriteLine("Input new social security number: ");
-                            ssn = Console.ReadLine();
-                            if (theDatabase.updateMember(id, name, ssn)) { }
-                            else
+                            try
                             {
-                                Console.WriteLine();
-                                Console.WriteLine("The member id does not exist.");
+                                Console.WriteLine("Enter member id: ");
+                                id = Convert.ToInt32(Console.ReadLine());
+                                Console.WriteLine("Input new name: ");
+                                name = Console.ReadLine();
+                                Console.WriteLine("Input new social security number: ");
+                                ssn = Console.ReadLine();
+                                if (theDatabase.updateMember(id, name, ssn)) { }
+                                else
+                                {
+                                    Console.WriteLine();
+                                    Console.WriteLine("The member id does not exist.");
+                                }
+                            }
+                            catch (FormatException)
+                            {
+                                Console.WriteLine("The input had wrong format.");
                             }
                             break;
 
                         case 5:
-                            Console.WriteLine("Enter member id: ");
-                            id = Convert.ToInt32(Console.ReadLine());
-                            theMember = theDatabase.lookAtSpecificMember(id);
-                            if (theMember != null)
+                            try
                             {
-                                Console.WriteLine(theMember.ToString("C"));
-                                Console.WriteLine();
-                                Console.WriteLine(theMember.ToString("V"));
-                                Console.WriteLine();
+                                Console.WriteLine("Enter member id: ");
+                                id = Convert.ToInt32(Console.ReadLine());
+                                theMember = theDatabase.lookAtSpecificMember(id);
+                                if (theMember != null)
+                                {
+                                    Console.WriteLine(theMember.ToString("C"));
+                                    Console.WriteLine();
+                                    Console.WriteLine(theMember.ToString("V"));
+                                    Console.WriteLine();
+                                }
+                                else
+                                    Console.WriteLine("The member does not exist.");
                             }
-                            else
-                                Console.WriteLine("The member does not exist.");
+                            catch (FormatException)
+                            {
+                                Console.WriteLine("The input had wrong format.");
+                            }
                             break;
                         case 6:
-                            Console.WriteLine("Enter member id: ");
-                            id = Convert.ToInt32(Console.ReadLine());
-                            theMember = theDatabase.lookAtSpecificMember(id);
-                            if(theMember != null)
-                                registerBoat(theMember);
-                            else
-                                Console.WriteLine("The member id does not exist.");
-                            break;
-                        case 7:
-                            Console.WriteLine("Enter member id: ");
-                            id = Convert.ToInt32(Console.ReadLine());
-                            theMember = theDatabase.lookAtSpecificMember(id);
-                            if(theMember != null)
+                            try
                             {
-                                Console.WriteLine("Enter index of the boat: ");
-                                index = Convert.ToInt32(Console.ReadLine());
-                                if (theMember.deleteBoat(index)) { }
+                                Console.WriteLine("Enter member id: ");
+                                id = Convert.ToInt32(Console.ReadLine());
+                                theMember = theDatabase.lookAtSpecificMember(id);
+                                if (theMember != null)
+                                    registerBoat(theMember);
                                 else
-                                    Console.WriteLine("Index of the boat or the boats does not exist, try another index starting from index 0.");
+                                    Console.WriteLine("The member id does not exist.");
                             }
-                            else
-                                Console.WriteLine("The member id does not exist.");
+                            catch (FormatException)
+                            {
+                                Console.WriteLine("The input had wrong format.");
+                            }
+                                break;
+                        case 7:
+                            try
+                            {
+                                Console.WriteLine("Enter member id: ");
+                                id = Convert.ToInt32(Console.ReadLine());
+                                theMember = theDatabase.lookAtSpecificMember(id);
+                                if (theMember != null)
+                                {
+                                    Console.WriteLine("Enter index of the boat: ");
+                                    index = Convert.ToInt32(Console.ReadLine());
+                                    if (theMember.deleteBoat(index)) { }
+                                    else
+                                        Console.WriteLine("Index of the boat or the boats does not exist, try another index starting from index 0.");
+                                }
+                                else
+                                    Console.WriteLine("The member id does not exist.");
+                            }
+                            catch (FormatException)
+                            {
+                                Console.WriteLine("The input had wrong format.");
+                            }
                             break;
                         case 8:
-                            Console.WriteLine("Enter member id: ");
-                            id = Convert.ToInt32(Console.ReadLine());
-                            theMember = theDatabase.lookAtSpecificMember(id);
-                            if(theMember != null)
+                            try
                             {
-                            Console.WriteLine("Enter index of the boat: ");
-                            index = Convert.ToInt32(Console.ReadLine());
-                            updateBoat(index, theMember);
+                                Console.WriteLine("Enter member id: ");
+                                id = Convert.ToInt32(Console.ReadLine());
+                                theMember = theDatabase.lookAtSpecificMember(id);
+                                if (theMember != null)
+                                {
+                                    Console.WriteLine("Enter index of the boat: ");
+                                    index = Convert.ToInt32(Console.ReadLine());
+                                    updateBoat(index, theMember);
+                                }
+                                else
+                                    Console.WriteLine("The member id does not exist.");
                             }
-                            else
-                                Console.WriteLine("The member id does not exist.");
+                            catch (FormatException)
+                            {
+                                Console.WriteLine("The input had wrong format.");
+                            }
                             break;
                         case 9: // "Exit."
                             break;
@@ -227,34 +282,41 @@ namespace View
 
             Console.WriteLine("Enter length of the boat: ");
             length = Convert.ToInt32(Console.ReadLine());
-
-            switch (option)
+            try
             {
+                if (option < 1 || option > 5)
+                    throw new ArgumentOutOfRangeException();
+                switch (option)
+                {
 
-                case 1:
-                    theType = Model.BoatType.Sailboat;
-                    theMember.registerBoat(theType, length);
-                    break;
-                case 2:
-                    theType = Model.BoatType.Motorsailer;
-                    theMember.registerBoat(theType, length);
-                    break;
-                case 3:
-                    theType = Model.BoatType.Kayak;
-                    theMember.registerBoat(theType, length);
-                    break;
-                case 4:
-                    theType = Model.BoatType.Canoe;
-                    theMember.registerBoat(theType, length);
-                    break;
-                case 5:
-                    theType = Model.BoatType.Other;
-                    theMember.registerBoat(theType, length);
-                    break;
-                default:
-                    break;
+                    case 1:
+                        theType = Model.BoatType.Sailboat;
+                        theMember.registerBoat(theType, length);
+                        break;
+                    case 2:
+                        theType = Model.BoatType.Motorsailer;
+                        theMember.registerBoat(theType, length);
+                        break;
+                    case 3:
+                        theType = Model.BoatType.Kayak;
+                        theMember.registerBoat(theType, length);
+                        break;
+                    case 4:
+                        theType = Model.BoatType.Canoe;
+                        theMember.registerBoat(theType, length);
+                        break;
+                    case 5:
+                        theType = Model.BoatType.Other;
+                        theMember.registerBoat(theType, length);
+                        break;
+                    default:
+                        break;
+                }
             }
-
+            catch (ArgumentOutOfRangeException)
+            {
+                Console.WriteLine("The option was not in the range of 1-5.");
+            }
         }
         public static void updateBoat(int index, Model.Member theMember)
         {
@@ -271,7 +333,6 @@ namespace View
             Console.WriteLine("5. Other.");
             Console.WriteLine("Your choice: ");
             option = Convert.ToInt32(Console.ReadLine());
-            Console.Clear();
 
             Console.WriteLine("Enter length of the boat: ");
             length = Convert.ToInt32(Console.ReadLine());
