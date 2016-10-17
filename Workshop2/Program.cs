@@ -199,7 +199,7 @@ namespace View
         }
 
         // Handle input boat type:
-        public static void registerBoat(Model.Member member)
+        private static void registerBoat(Model.Member member)
         {
             int option;
             Model.BoatType boatType;
@@ -254,7 +254,7 @@ namespace View
                 Console.WriteLine("The option was not in the range of 1-5.");
             }
         }
-        public static void updateBoat(int index, Model.Member member)
+        private static void updateBoat(int index, Model.Member member)
         {
             int option;
             Model.BoatType boatType;
@@ -309,7 +309,6 @@ namespace View
                 default:
                     break;
             }
-
         }
         private static int inputMemberID()
         {
