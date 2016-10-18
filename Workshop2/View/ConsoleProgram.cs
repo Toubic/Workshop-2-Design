@@ -5,15 +5,13 @@ using System.Text;
 
 namespace View
 {
-    class Program
+    class ConsoleProgram
     {
-        static void Main(string[] args)
+
+        public void start(Model.MemberDatabase database)
         {
             try
             {
-
-                Model.MemberDatabase database = new Model.MemberDatabase();
-                database.initializeDatabase();
 
                 //Main menu:
                 int option = 0;
@@ -49,7 +47,7 @@ namespace View
                         Console.Clear();
                         Console.WriteLine("The option was not in the range of 1-9.");
                     }
-                    
+
                     int id;
                     int index;
                     string name;
@@ -141,7 +139,7 @@ namespace View
                             {
                                 Console.WriteLine("The input had wrong format.");
                             }
-                                break;
+                            break;
                         case 7:
                             try
                             {
@@ -197,14 +195,13 @@ namespace View
                 Console.WriteLine(e.Message);
             }
         }
-
         // Handle input boat type:
         private static void registerBoat(Model.Member member)
         {
             int option;
             Model.BoatType boatType;
             int length;
-     
+
             Console.WriteLine("Which boat type?:");
             Console.WriteLine("--------");
             Console.WriteLine("1. Sailboat.");
@@ -313,7 +310,7 @@ namespace View
         private static int inputMemberID()
         {
             int id;
- 
+
             Console.WriteLine("Enter member id: ");
             id = Convert.ToInt32(Console.ReadLine());
 
